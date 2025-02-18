@@ -8,9 +8,12 @@ import Index from "./pages/Index";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import About from "./pages/About";
-import Admin from "./pages/Admin";
+import Listings from "./pages/Listings";
+import Administrative from "./pages/Administrative";
 import Gallery from "./pages/Gallery";
+import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Chatbot from "./components/Chatbot";
 
 const queryClient = new QueryClient();
 
@@ -25,10 +28,13 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/prestations" element={<Services />} />
           <Route path="/about" element={<About />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/annonces" element={<Listings />} />
+          <Route path="/administratif" element={<Administrative />} />
           <Route path="/galerie" element={<Gallery />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Chatbot />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
