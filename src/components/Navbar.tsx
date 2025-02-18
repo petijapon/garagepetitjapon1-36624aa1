@@ -16,6 +16,7 @@ const Navbar = () => {
     { href: "/galerie", label: "Galerie" },
     { href: "/about", label: "Qui sommes-nous" },
     { href: "/contact", label: "Contact" },
+    { href: "/admin", label: "Administration" },
   ];
 
   return (
@@ -23,7 +24,7 @@ const Navbar = () => {
       <div className="container-custom">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="font-bold text-xl text-primary">
-            ASBAN IMMO
+            FABIO IMMOBILIER
           </Link>
 
           {/* Desktop Menu */}

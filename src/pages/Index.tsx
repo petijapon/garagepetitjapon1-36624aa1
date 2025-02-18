@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, MapPin } from "lucide-react";
@@ -6,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import PropertyCard from "@/components/PropertyCard";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
+import ImageCarousel from "@/components/ImageCarousel";
+import ProjectForm from "@/components/ProjectForm";
 
 const properties = [
   {
@@ -43,12 +44,8 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-[80vh] bg-black/40 overflow-hidden">
-        <img 
-          src="/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png"
-          alt="Hero background" 
-          className="absolute inset-0 w-full h-full object-cover -z-10"
-        />
+      <section className="relative h-[80vh] overflow-hidden">
+        <ImageCarousel />
         <div className="container-custom h-full flex flex-col items-center justify-center text-white relative z-10">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -63,7 +60,7 @@ const Index = () => {
             transition={{ delay: 0.2 }}
             className="text-xl mb-12 text-center"
           >
-            ASBAN IMMO vous accompagne dans votre projet immobilier
+            FABIO IMMOBILIER vous accompagne dans votre projet immobilier
           </motion.p>
 
           {/* Search Section */}
@@ -73,13 +70,14 @@ const Index = () => {
             transition={{ delay: 0.4 }}
             className="w-full max-w-4xl bg-white rounded-xl p-6 shadow-lg"
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <select 
                 value={searchType}
                 onChange={(e) => setSearchType(e.target.value)}
                 className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
               >
                 <option>Acheter</option>
+                <option>Vendre</option>
                 <option>Louer</option>
               </select>
               
@@ -91,7 +89,6 @@ const Index = () => {
                 <option>Tous les biens</option>
                 <option>Maison</option>
                 <option>Appartement</option>
-                <option>Villa</option>
                 <option>Terrain</option>
               </select>
 
@@ -99,6 +96,8 @@ const Index = () => {
                 <Search className="mr-2 h-4 w-4" />
                 Rechercher
               </Button>
+
+              <ProjectForm />
             </div>
           </motion.div>
         </div>
@@ -120,14 +119,16 @@ const Index = () => {
       <section className="py-20 bg-primary/5">
         <div className="container-custom text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Décrivez-nous votre projet immobilier
+            Contactez-nous
           </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Notre équipe d'experts est là pour vous accompagner dans toutes les étapes de votre projet
-          </p>
-          <Button asChild className="btn-primary">
-            <Link to="/contact">Nous contacter</Link>
-          </Button>
+          <div className="space-y-2 text-gray-600">
+            <p>FABIO IMMOBILIER</p>
+            <p>1342 Avenue Pya, Djidjolé</p>
+            <p>Lomé - TOGO</p>
+            <p>(00228) 93 47 01 08</p>
+            <p>(00228) 70 19 50 50</p>
+            <p>contact@fabioimmobilier.com</p>
+          </div>
         </div>
       </section>
     </div>
