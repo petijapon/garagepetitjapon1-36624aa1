@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, MapPin } from "lucide-react";
@@ -112,23 +113,6 @@ const Index = () => {
             {properties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact CTA */}
-      <section className="py-20 bg-primary/5">
-        <div className="container-custom text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Contactez-nous
-          </h2>
-          <div className="space-y-2 text-gray-600">
-            <p>FABIO IMMOBILIER</p>
-            <p>1342 Avenue Pya, Djidjolé</p>
-            <p>Lomé - TOGO</p>
-            <p>(00228) 93 47 01 08</p>
-            <p>(00228) 70 19 50 50</p>
-            <p>contact@fabioimmobilier.com</p>
           </div>
         </div>
       </section>
