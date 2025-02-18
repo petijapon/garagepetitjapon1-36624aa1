@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import ImageCarousel from "@/components/ImageCarousel";
 import ProjectForm from "@/components/ProjectForm";
+import Footer from "@/components/Footer";
 
 const properties = [
   {
@@ -131,6 +132,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 };
