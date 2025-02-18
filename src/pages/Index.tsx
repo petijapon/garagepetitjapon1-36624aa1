@@ -9,6 +9,13 @@ import ImageCarousel from "@/components/ImageCarousel";
 import ProjectForm from "@/components/ProjectForm";
 import Footer from "@/components/Footer";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const properties = [
   {
@@ -200,51 +207,62 @@ const Index = () => {
             ))}
           </div>
 
-          {/* Add Review Form */}
-          <div className="max-w-2xl mx-auto bg-gray-50 p-8 rounded-xl">
-            <h3 className="text-xl font-semibold mb-6 text-center">Laissez votre avis</h3>
-            <form onSubmit={handleReviewSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium mb-2">Votre nom</label>
-                <input
-                  type="text"
-                  value={newReview.name}
-                  onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                  className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2">Note</label>
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-6 w-6 cursor-pointer ${
-                        i < newReview.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                      }`}
-                      onClick={() => setNewReview({ ...newReview, rating: i + 1 })}
+          {/* Add Review Dialog */}
+          <div className="flex justify-center">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="lg" className="font-semibold">
+                  Laisser un avis
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Laissez votre avis</DialogTitle>
+                </DialogHeader>
+                <form onSubmit={handleReviewSubmit} className="space-y-6 mt-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Votre nom</label>
+                    <input
+                      type="text"
+                      value={newReview.name}
+                      onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                      className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      required
                     />
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">Votre commentaire</label>
-                <textarea
-                  value={newReview.comment}
-                  onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                  className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                  rows={4}
-                  required
-                />
-              </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Note</label>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-6 w-6 cursor-pointer ${
+                            i < newReview.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                          }`}
+                          onClick={() => setNewReview({ ...newReview, rating: i + 1 })}
+                        />
+                      ))}
+                    </div>
+                  </div>
 
-              <Button type="submit" className="w-full">
-                Envoyer mon avis
-              </Button>
-            </form>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Votre commentaire</label>
+                    <textarea
+                      value={newReview.comment}
+                      onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                      className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                      rows={4}
+                      required
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full">
+                    Envoyer mon avis
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
