@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { MessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,6 @@ const Chatbot = () => {
     setMessages([...messages, { text: input, isUser: true }]);
     setInput("");
 
-    // Simuler une réponse du bot
     setTimeout(() => {
       setMessages(prev => [...prev, {
         text: "Je vais transmettre votre message à notre équipe. Un agent vous recontactera bientôt.",
@@ -45,7 +43,7 @@ const Chatbot = () => {
             className="fixed bottom-20 right-4 w-[350px] bg-white rounded-lg shadow-lg overflow-hidden"
           >
             <div className="p-4 bg-primary text-white flex justify-between items-center">
-              <h3 className="font-semibold">Chat avec FABIO IMMO</h3>
+              <h3 className="font-semibold">Assistant virtuel de FABIO IMMOBILIER</h3>
               <Button 
                 variant="ghost" 
                 size="icon"
