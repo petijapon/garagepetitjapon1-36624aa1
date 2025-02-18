@@ -1,9 +1,42 @@
-
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
+import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Contact = () => {
+  const [isRecording, setIsRecording] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message envoyé !",
+      description: "Nous vous répondrons dans les plus brefs délais.",
+    });
+  };
+
+  const handleWhatsApp = () => {
+    window.open("https://wa.me/22893470108", "_blank");
+  };
+
+  const handleAppointment = () => {
+    toast({
+      title: "Demande de rendez-vous",
+      description: "Un agent vous contactera pour confirmer le rendez-vous.",
+    });
+  };
+
+  const startRecording = () => {
+    setIsRecording(true);
+    // Implémenter la logique d'enregistrement
+  };
+
+  const stopRecording = () => {
+    setIsRecording(false);
+    // Arrêter l'enregistrement
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -40,10 +73,16 @@ const Contact = () => {
             </div>
 
             <div className="space-y-4">
-              <Button className="w-full bg-[#FF5A5F] hover:bg-[#FF5A5F]/90 text-white">
+              <Button 
+                className="w-full bg-[#FF5A5F] hover:bg-[#FF5A5F]/90 text-white"
+                onClick={handleWhatsApp}
+              >
                 Contactez-nous sur WhatsApp
               </Button>
-              <Button className="w-full bg-primary hover:bg-primary/90">
+              <Button 
+                className="w-full bg-primary hover:bg-primary/90"
+                onClick={handleAppointment}
+              >
                 Prendre rendez-vous
               </Button>
             </div>
@@ -53,7 +92,7 @@ const Contact = () => {
           <div className="bg-white p-8 rounded-xl shadow-sm">
             <h2 className="text-xl font-semibold mb-6">Envoyez-nous un message</h2>
             
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Nom complet</label>
                 <input
@@ -87,6 +126,20 @@ const Contact = () => {
                   className="w-full p-3 border rounded-lg h-32 focus:ring-2 focus:ring-primary/20 focus:border-primary"
                   required
                 />
+              </div>
+
+              <div className="flex gap-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={isRecording ? stopRecording : startRecording}
+                  className={`flex items-center gap-2 ${
+                    isRecording ? "bg-red-50 text-red-600" : ""
+                  }`}
+                >
+                  <Mic className="h-4 w-4" />
+                  {isRecording ? "Arrêter l'enregistrement" : "Enregistrer un message"}
+                </Button>
               </div>
 
               <Button type="submit" className="w-full">
