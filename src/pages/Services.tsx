@@ -1,7 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Building2, Search, Home, Key, Banknote, Shield, Wrench, Tool, Settings, Battery, Scissors, Gauge } from "lucide-react";
+import { Building2, Search, Home, Key, Banknote, Shield, Wrench, Settings, Battery, Scissors, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -44,7 +44,7 @@ const Services = () => {
       ]
     },
     {
-      icon: <Tool className="w-8 h-8" />,
+      icon: <Wrench className="w-8 h-8" />,
       title: "Entretien préventif",
       description: "Maintenez votre moto en parfait état de marche.",
       subServices: [
