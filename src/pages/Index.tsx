@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Phone, Tool, Wrench, ShoppingBag, Calendar } from "lucide-react";
+import { Search, Phone, Wrench, ShoppingBag, Calendar, MapPin, Star, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
@@ -35,7 +35,7 @@ const services = [
     id: 3,
     title: "Diagnostic",
     description: "Analyse complète de votre moto",
-    icon: <Tool className="h-8 w-8" />,
+    icon: <Settings className="h-8 w-8" />,
     image: "/lovable-uploads/21b4100a-3af7-41cc-94c4-16e7224a3176.png"
   }
 ];
@@ -126,7 +126,7 @@ const Index = () => {
             </Button>
             <Button size="lg" variant="outline" className="bg-white/10">
               <Link to="/services" className="gap-2">
-                <Tool className="h-5 w-5" />
+                <Settings className="h-5 w-5" />
                 Nos services
               </Link>
             </Button>
