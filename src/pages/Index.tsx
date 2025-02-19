@@ -1,12 +1,11 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, MapPin, Star } from "lucide-react";
+import { Search, Phone, Tool, Wrench, ShoppingBag, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import PropertyCard from "@/components/PropertyCard";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import ImageCarousel from "@/components/ImageCarousel";
-import ProjectForm from "@/components/ProjectForm";
 import Footer from "@/components/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -17,56 +16,53 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const properties = [
+const services = [
   {
     id: 1,
-    title: "Villa avec Piscine",
-    location: "Lomé, Togo",
-    price: "1,500,000 FCFA/mois",
-    type: "À Louer",
-    image: "/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png"
+    title: "Réparation & Entretien",
+    description: "Service complet pour vos grosses motos",
+    icon: <Wrench className="h-8 w-8" />,
+    image: "/lovable-uploads/3aede12d-c8e4-4396-b5cb-ff3144a3b030.png"
   },
   {
     id: 2,
-    title: "Villa de Luxe",
-    location: "Adidogomé, Togo",
-    price: "Sur demande",
-    type: "À Vendre",
-    image: "/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png"
+    title: "Vente d'Accessoires",
+    description: "Large gamme de pièces et accessoires",
+    icon: <ShoppingBag className="h-8 w-8" />,
+    image: "/lovable-uploads/0451645d-ad57-4fb6-85e1-6d300e2c13c4.png"
   },
   {
     id: 3,
-    title: "Maison Moderne",
-    location: "Baguida, Togo",
-    price: "Sur demande",
-    type: "À Vendre",
-    image: "/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png"
+    title: "Diagnostic",
+    description: "Analyse complète de votre moto",
+    icon: <Tool className="h-8 w-8" />,
+    image: "/lovable-uploads/21b4100a-3af7-41cc-94c4-16e7224a3176.png"
   }
 ];
 
 const reviews = [
   {
     id: 1,
-    name: "Kossi Adebayor",
+    name: "Kodjo Mensah",
     location: "Lomé, Togo",
     rating: 5,
-    comment: "Excellent service ! L'équipe de FABIO IMMOBILIER a su comprendre mes besoins et m'a trouvé la maison parfaite.",
+    comment: "Service exceptionnel ! L'équipe a parfaitement réparé ma moto et les prix sont raisonnables.",
     date: "Mars 2024"
   },
   {
     id: 2,
-    name: "Aïcha Ouedraogo",
+    name: "Ahmed Ouedraogo",
     location: "Ouagadougou, Burkina Faso",
     rating: 5,
-    comment: "Un professionnalisme remarquable. Je recommande vivement leurs services pour tout projet immobilier.",
+    comment: "Professionnalisme remarquable. Je recommande vivement leurs services pour l'entretien des grosses cylindrées.",
     date: "Février 2024"
   },
   {
     id: 3,
-    name: "Koffi Gnassingbé",
+    name: "Kofi Agbeko",
     location: "Kara, Togo",
     rating: 4,
-    comment: "Très satisfait de l'accompagnement pour l'achat de mon appartement. Une équipe à l'écoute.",
+    comment: "Excellent service après-vente et conseils pertinents pour l'entretien de ma moto.",
     date: "Février 2024"
   },
   {
@@ -74,14 +70,12 @@ const reviews = [
     name: "Rachid Zinsou",
     location: "Cotonou, Bénin",
     rating: 5,
-    comment: "Service impeccable et suivi personnalisé. FABIO IMMOBILIER a dépassé mes attentes.",
+    comment: "Le meilleur garage de la région pour les grosses motos. Personnel qualifié et prix compétitifs.",
     date: "Janvier 2024"
   }
 ];
 
 const Index = () => {
-  const [searchType, setSearchType] = useState("Acheter");
-  const [propertyType, setPropertyType] = useState("Tous les biens");
   const [newReview, setNewReview] = useState({ name: "", comment: "", rating: 5 });
   const { toast } = useToast();
 
@@ -107,7 +101,7 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             className="heading-xl text-center mb-6"
           >
-            Trouvez votre bien immobilier idéal
+            Expertise mécanique et accessoires premium pour grosses motos
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -115,63 +109,97 @@ const Index = () => {
             transition={{ delay: 0.2 }}
             className="text-xl mb-12 text-center"
           >
-            FABIO IMMOBILIER vous accompagne dans votre projet immobilier
+            Le spécialiste des grosses cylindrées à Lomé
           </motion.p>
 
-          {/* Search Section */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="w-full max-w-4xl bg-white rounded-xl p-6 shadow-lg"
+            className="flex gap-4"
           >
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <select 
-                value={searchType}
-                onChange={(e) => setSearchType(e.target.value)}
-                className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              >
-                <option>Acheter</option>
-                <option>Vendre</option>
-                <option>Louer</option>
-              </select>
-              
-              <select
-                value={propertyType}
-                onChange={(e) => setPropertyType(e.target.value)}
-                className="w-full p-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              >
-                <option>Tous les biens</option>
-                <option>Maison</option>
-                <option>Appartement</option>
-                <option>Terrain</option>
-              </select>
-
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white h-12">
-                <Search className="mr-2 h-4 w-4" />
-                Rechercher
-              </Button>
-
-              <ProjectForm />
-            </div>
+            <Button size="lg" asChild>
+              <Link to="/contact" className="gap-2">
+                <Calendar className="h-5 w-5" />
+                Prendre rendez-vous
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" className="bg-white/10">
+              <Link to="/services" className="gap-2">
+                <Tool className="h-5 w-5" />
+                Nos services
+              </Link>
+            </Button>
           </motion.div>
         </div>
       </section>
 
-      {/* Featured Properties */}
+      {/* Services Section */}
       <section className="py-20 bg-gray-50">
         <div className="container-custom">
-          <h2 className="text-3xl font-bold text-center mb-12">Biens à la une</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+          <h2 className="text-3xl font-bold text-center mb-12">Nos Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((service) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-all group"
+              >
+                <div className="text-primary mb-6">{service.icon}</div>
+                <h3 className="text-xl font-semibold mb-4">{service.title}</h3>
+                <p className="text-gray-600 mb-6">{service.description}</p>
+                <Link to="/services">
+                  <Button variant="outline" className="w-full">
+                    En savoir plus
+                  </Button>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Reviews Section */}
+      {/* Contact Section */}
       <section className="py-20 bg-white">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Contactez-nous</h2>
+              <p className="text-gray-600 mb-8">
+                Besoin d'un service ou d'un conseil ? Notre équipe est à votre disposition.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <Phone className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="font-semibold">Téléphones :</p>
+                    <p className="text-gray-600">90 01 05 44 / 79 70 10 00 / 99 41 02 06</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <MapPin className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="font-semibold">Adresse :</p>
+                    <p className="text-gray-600">133, Av. de la Libération, Hanoukopé - BP 1364, Lomé - Togo</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src="/lovable-uploads/3a142725-ac1b-43ac-b27f-eb37921a6bcb.png"
+                alt="Notre atelier"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="py-20 bg-gray-50">
         <div className="container-custom">
           <h2 className="text-3xl font-bold text-center mb-4">Avis de nos clients</h2>
           <p className="text-gray-600 text-center mb-12">Découvrez ce que nos clients disent de nous</p>
@@ -183,7 +211,7 @@ const Index = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 p-6 rounded-xl"
+                className="bg-white p-6 rounded-xl shadow-sm"
               >
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (

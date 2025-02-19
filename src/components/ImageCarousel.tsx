@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
-  "/lovable-uploads/9beac81f-c3a4-4e13-bcaa-1fbeed953c95.png",
-  "/lovable-uploads/4454d84e-ba4a-499a-9d74-0ffd93f632c2.png",
-  "/lovable-uploads/b17b0de7-5b52-49d0-a050-9c52a498224f.png",
-  "/lovable-uploads/00371eea-0e16-4eaa-a4ba-b2573277f3a5.png",
-  "/lovable-uploads/e2706fe9-e5ab-47d3-b163-0680360a5314.png",
-  "/lovable-uploads/d7f25fe9-4f2a-477e-a5d0-18145b75ecf8.png"
+  "/lovable-uploads/22318024-04a6-4cb5-8e1d-cd1c8ecdff13.png",
+  "/lovable-uploads/3aede12d-c8e4-4396-b5cb-ff3144a3b030.png",
+  "/lovable-uploads/21b4100a-3af7-41cc-94c4-16e7224a3176.png",
+  "/lovable-uploads/78548c65-1594-4bd8-909e-e868be4e4e8c.png",
+  "/lovable-uploads/0451645d-ad57-4fb6-85e1-6d300e2c13c4.png",
+  "/lovable-uploads/7b171103-f05a-4f2c-a782-322ce810f891.png"
 ];
 
 const ImageCarousel = () => {
@@ -17,7 +17,7 @@ const ImageCarousel = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 10000);
+    }, 5000);
 
     return () => clearInterval(timer);
   }, []);
@@ -33,10 +33,10 @@ const ImageCarousel = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 1 }}
           className="absolute inset-0 w-full h-full object-cover"
-          alt="Property showcase"
+          alt="Garage Petit Japon - Expertise moto"
         />
       </AnimatePresence>
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/60" />
     </div>
   );
 };

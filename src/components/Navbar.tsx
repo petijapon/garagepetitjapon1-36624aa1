@@ -10,21 +10,23 @@ const Navbar = () => {
 
   const links = [
     { href: "/", label: "Accueil" },
-    { href: "/annonces", label: "Annonces" },
-    { href: "/prestations", label: "Nos prestations" },
-    { href: "/administratif", label: "Formalités administratives" },
+    { href: "/services", label: "Services" },
+    { href: "/accessoires", label: "Accessoires" },
     { href: "/galerie", label: "Galerie" },
-    { href: "/about", label: "Qui sommes-nous" },
     { href: "/contact", label: "Contact" },
-    { href: "/admin", label: "Administration" },
   ];
 
   return (
     <nav className="bg-white sticky top-0 z-50 shadow-sm">
       <div className="container-custom">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="font-bold text-xl text-primary">
-            FABIO IMMOBILIER
+          <Link to="/" className="flex items-center gap-2">
+            <img 
+              src="/lovable-uploads/fe266e6c-f042-4d04-8ed0-47b1211aaa8c.png" 
+              alt="GARAGE PETIT JAPON" 
+              className="h-10"
+            />
+            <span className="font-bold text-xl text-primary">GARAGE PETIT JAPON</span>
           </Link>
 
           {/* Desktop Menu */}
