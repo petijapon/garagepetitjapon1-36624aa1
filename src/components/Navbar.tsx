@@ -22,11 +22,10 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center gap-2">
             <img 
-              src="/lovable-uploads/fe266e6c-f042-4d04-8ed0-47b1211aaa8c.png" 
+              src="/lovable-uploads/e10b4a98-2601-49a5-a202-dc319707a0c2.png" 
               alt="GARAGE PETIT JAPON" 
-              className="h-10"
+              className="h-12"
             />
-            <span className="font-bold text-xl text-primary">GARAGE PETIT JAPON</span>
           </Link>
 
           {/* Desktop Menu */}

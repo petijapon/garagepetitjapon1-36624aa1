@@ -12,6 +12,7 @@ import Listings from "./pages/Listings";
 import Administrative from "./pages/Administrative";
 import Gallery from "./pages/Gallery";
 import Admin from "./pages/Admin";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
 import Accessories from "./pages/Accessories";
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/administratif" element={<Administrative />} />
           <Route path="/galerie" element={<Gallery />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/parametres" element={<Settings />} />
           <Route path="/accessoires" element={<Accessories />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
