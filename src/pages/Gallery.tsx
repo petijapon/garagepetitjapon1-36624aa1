@@ -6,13 +6,21 @@ import { motion } from "framer-motion";
 
 const Gallery = () => {
   const images = [
-    "/lovable-uploads/a3202698-f005-4e26-9355-08753a8649b6.png",
-    "/lovable-uploads/a0e53ac6-ffa2-4ae2-960a-01eee77afa84.png",
-    "/lovable-uploads/7f07a3d6-584d-4c57-b720-38a651a69c67.png",
-    "/lovable-uploads/d6db9d47-c713-4e67-b5e1-77ed99deced5.png",
-    "/lovable-uploads/dfb29c06-db65-40f7-a182-f1aba137051c.png",
-    "/lovable-uploads/5f2ccb5a-7ba2-44bc-b70c-239bb5c1b49f.png",
-    // ... Ajoutez toutes les autres images
+    "/lovable-uploads/1e42ff7b-309f-417a-bf72-8396bd7d69af.png",
+    "/lovable-uploads/c30ac168-a7d3-4c47-af9d-eb2d7fdeae8d.png",
+    "/lovable-uploads/36c40bfa-69e4-4381-9fd6-a5e18133c73b.png",
+    "/lovable-uploads/3861c29b-0424-4f72-ab1c-fae1026de077.png",
+    "/lovable-uploads/d5580867-bbaa-44a3-9a1e-6f3cec33e172.png",
+    "/lovable-uploads/8b7d83bf-cece-40c6-9448-aa75cfd2277c.png",
+    "/lovable-uploads/a8e26859-8da8-486e-a157-9817e56e49d2.png",
+    "/lovable-uploads/fc701bb2-11fe-4a19-8b9b-adc6c379070b.png",
+    "/lovable-uploads/b29e0374-bc59-4e9e-abf1-6a59aed922c4.png",
+    "/lovable-uploads/8ed43a06-a59f-4936-bafc-e957747b0ab9.png",
+    "/lovable-uploads/06e77160-d9a5-4391-a5cd-2fe8d4274add.png",
+    "/lovable-uploads/bf404686-61f4-44fa-bea9-e9fd69214d5d.png",
+    "/lovable-uploads/e30605bb-1963-4e6b-be8e-482b4d1078cb.png",
+    "/lovable-uploads/893d47e5-0a4a-4871-9b45-2b0ae5524202.png",
+    "/lovable-uploads/92c9235f-57ee-4142-9e5f-e7ab25a86dfc.png"
   ];
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -37,7 +45,7 @@ const Gallery = () => {
               <div className="aspect-square overflow-hidden rounded-lg">
                 <img
                   src={image}
-                  alt={`Image ${index + 1}`}
+                  alt={`Image ${index + 1} du Garage Petit Japon`}
                   className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"
                 />
               </div>
@@ -54,7 +62,7 @@ const Gallery = () => {
         >
           <img
             src={selectedImage}
-            alt="Selected"
+            alt="Image agrandie"
             className="max-w-[90vw] max-h-[90vh] object-contain"
           />
         </div>

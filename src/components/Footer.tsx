@@ -4,26 +4,41 @@ import { MapPin, Phone, Mail, Facebook, Twitter, Instagram, Youtube } from "luci
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const handleWhatsAppClick = (number: string) => {
+    window.open(`https://wa.me/${number.replace(/\+|\s/g, '')}`, '_blank');
+  };
+
+  const handleMapClick = () => {
+    window.open('https://maps.google.com/?q=47M2+8WF,Boulevard+Du+Mono,Lomé,Togo', '_blank');
+  };
+
   return (
     <footer className="bg-gray-50 pt-16 pb-8">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* FABIO IMMOBILIER */}
+          {/* GARAGE PETIT JAPON */}
           <div>
-            <h3 className="text-primary font-bold text-xl mb-4">FABIO IMMOBILIER</h3>
-            <p className="text-gray-600 mb-4">"Une seule adresse pour trouver la vôtre"</p>
+            <h3 className="text-primary font-bold text-xl mb-4">GARAGE PETIT JAPON</h3>
+            <p className="text-gray-600 mb-4">"Le spécialiste des grosses cylindrées"</p>
             <div className="space-y-2 text-gray-600">
-              <div className="flex items-center gap-2">
+              <button 
+                onClick={handleMapClick}
+                className="flex items-center gap-2 hover:text-primary transition-colors"
+              >
                 <MapPin className="w-4 h-4" />
-                <span>1342 Avenue Pya, Djidjolé, Lomé - TOGO</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                <span>(00228) 93 47 01 08</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                <span>contact@fabioimmobilier.com</span>
+                <span>47M2+8WF, Boulevard Du Mono, Lomé - Togo</span>
+              </button>
+              <div className="space-y-1">
+                {["+228 90 01 05 44", "+228 79 70 10 00", "+228 99 41 02 06"].map((phone) => (
+                  <button
+                    key={phone}
+                    onClick={() => handleWhatsAppClick(phone)}
+                    className="flex items-center gap-2 hover:text-primary transition-colors w-full"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span>{phone}</span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -33,7 +48,9 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-4">Navigation</h3>
             <ul className="space-y-2">
               <li><Link to="/" className="text-gray-600 hover:text-primary">Accueil</Link></li>
-              <li><Link to="/annonces" className="text-gray-600 hover:text-primary">Annonces</Link></li>
+              <li><Link to="/services" className="text-gray-600 hover:text-primary">Services</Link></li>
+              <li><Link to="/accessoires" className="text-gray-600 hover:text-primary">Accessoires</Link></li>
+              <li><Link to="/galerie" className="text-gray-600 hover:text-primary">Galerie</Link></li>
               <li><Link to="/contact" className="text-gray-600 hover:text-primary">Contact</Link></li>
             </ul>
           </div>
@@ -50,7 +67,7 @@ const Footer = () => {
                 placeholder="Votre email"
                 className="flex-1 p-2 border rounded-md focus:ring-2 focus:ring-primary/20 focus:border-primary"
               />
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button>
                 S'inscrire
               </Button>
             </div>
@@ -73,7 +90,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t pt-8 text-center text-gray-600">
-          <p>© 2025 FABIO IMMOBILIER. Tous droits réservés.</p>
+          <p>© 2025 GARAGE PETIT JAPON. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
