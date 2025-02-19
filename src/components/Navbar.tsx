@@ -14,6 +14,7 @@ const Navbar = () => {
     { href: "/accessoires", label: "Accessoires" },
     { href: "/galerie", label: "Galerie" },
     { href: "/contact", label: "Contact" },
+    { href: "/parametres", label: "Paramètres" },
   ];
 
   return (
