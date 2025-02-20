@@ -19,7 +19,7 @@ interface Annonce {
   title: string;
   description: string;
   price: string;
-  image: string;
+  images: string[];
 }
 
 const Boutique = () => {
@@ -50,7 +50,6 @@ const Boutique = () => {
           Découvrez nos produits et annonces disponibles
         </p>
 
-        {/* Grille d'annonces */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {annonces.map((item, index) => (
             <motion.div
@@ -60,12 +59,17 @@ const Boutique = () => {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="aspect-square overflow-hidden relative group">
+                  {item.images.map((image, imageIndex) => (
+                    <img
+                      key={imageIndex}
+                      src={image}
+                      alt={`${item.title} - Image ${imageIndex + 1}`}
+                      className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${
+                        imageIndex === 0 ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      }`}
+                    />
+                  ))}
                 </div>
                 <CardHeader>
                   <CardTitle>{item.title}</CardTitle>

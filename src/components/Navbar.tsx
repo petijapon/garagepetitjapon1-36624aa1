@@ -14,7 +14,6 @@ const Navbar = () => {
     { href: "/boutique", label: "Boutique" },
     { href: "/galerie", label: "Galerie" },
     { href: "/contact", label: "Contact" },
-    { href: "/parametres", label: "Paramètres" },
   ];
 
   return (
