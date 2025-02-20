@@ -1,3 +1,4 @@
+
 import { MapPin, Phone, Mail, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
@@ -18,7 +19,7 @@ const Contact = () => {
   };
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/22893470108", "_blank");
+    window.open("https://wa.me/22890010544", "_blank");
   };
 
   const handleAppointment = () => {
@@ -54,22 +55,23 @@ const Contact = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary mt-1" />
                 <div>
-                  <p className="font-medium">1342 Avenue Pya, Djidjolé</p>
-                  <p className="text-gray-600">Lomé - TOGO</p>
+                  <p className="font-medium">133, Av. de la Libération, Hanoukopé</p>
+                  <p className="text-gray-600">BP 1364, Lomé - TOGO</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-primary mt-1" />
                 <div>
-                  <p>(00228) 93 47 01 08</p>
-                  <p>(00228) 70 19 50 50</p>
+                  <p>90 01 05 44</p>
+                  <p>79 70 10 00</p>
+                  <p>99 41 02 06</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-primary mt-1" />
-                <p>contact@fabioimmobilier.com</p>
+                <p>contact@garagepetitjapon.com</p>
               </div>
             </div>
 
@@ -163,6 +165,8 @@ const Contact = () => {
           />
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
