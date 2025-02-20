@@ -15,7 +15,7 @@ import Admin from "./pages/Admin";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
-import Boutique from "./pages/Accessories";
+import Boutique from "./pages/Boutique";
 
 const queryClient = new QueryClient();
 

@@ -11,7 +11,7 @@ const Navbar = () => {
   const links = [
     { href: "/", label: "Accueil" },
     { href: "/services", label: "Services" },
-    { href: "/accessoires", label: "Accessoires" },
+    { href: "/boutique", label: "Boutique" },
     { href: "/galerie", label: "Galerie" },
     { href: "/contact", label: "Contact" },
     { href: "/parametres", label: "Paramètres" },

@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -127,7 +127,31 @@ const Settings = () => {
                   <div className="border-2 border-dashed rounded-lg p-4 text-center">
                     <ImagePlus className="mx-auto h-12 w-12 text-gray-400" />
                     <p className="mt-2 text-sm text-gray-600">Cliquez pour ajouter une image</p>
+                    <input 
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onloadend = () => {
+                            setNewAnnonce({ ...newAnnonce, image: reader.result as string });
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
                   </div>
+                  {newAnnonce.image && (
+                    <div className="mt-4">
+                      <img 
+                        src={newAnnonce.image} 
+                        alt="Preview" 
+                        className="w-full h-40 object-cover rounded-lg"
+                      />
+                    </div>
+                  )}
                 </div>
                 <Button onClick={handleAddAnnonce} className="w-full">Ajouter</Button>
               </div>
