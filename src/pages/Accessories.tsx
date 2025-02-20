@@ -1,4 +1,5 @@
 
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ShoppingBag, Shield, Star } from "lucide-react";
@@ -13,86 +14,46 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-const accessories = [
-  {
-    id: 1,
-    name: "Casque Intégral Pro",
-    description: "Casque haut de gamme avec système de ventilation avancé",
-    price: "89.900 FCFA",
-    image: "/lovable-uploads/3aede12d-c8e4-4396-b5cb-ff3144a3b030.png",
-    category: "Protection"
-  },
-  {
-    id: 2,
-    name: "Gants Racing",
-    description: "Gants en cuir avec protection renforcée",
-    price: "29.900 FCFA",
-    image: "/lovable-uploads/0451645d-ad57-4fb6-85e1-6d300e2c13c4.png",
-    category: "Protection"
-  },
-  {
-    id: 3,
-    name: "Kit Chaîne Premium",
-    description: "Kit chaîne haute performance pour grosses cylindrées",
-    price: "75.900 FCFA",
-    image: "/lovable-uploads/21b4100a-3af7-41cc-94c4-16e7224a3176.png",
-    category: "Pièces"
-  },
-  {
-    id: 4,
-    name: "Huile Moteur Racing",
-    description: "Huile synthétique haute performance 10W-40",
-    price: "15.900 FCFA",
-    image: "/lovable-uploads/78548c65-1594-4bd8-909e-e868be4e4e8c.png",
-    category: "Entretien"
-  },
-  {
-    id: 5,
-    name: "Plaquettes de Frein",
-    description: "Plaquettes de frein haute performance",
-    price: "35.900 FCFA",
-    image: "/lovable-uploads/7b171103-f05a-4f2c-a782-322ce810f891.png",
-    category: "Pièces"
-  },
-  {
-    id: 6,
-    name: "Blouson Moto",
-    description: "Blouson en cuir avec protections homologuées",
-    price: "129.900 FCFA",
-    image: "/lovable-uploads/22318024-04a6-4cb5-8e1d-cd1c8ecdff13.png",
-    category: "Protection"
-  }
-];
+interface Annonce {
+  id: number;
+  title: string;
+  description: string;
+  price: string;
+  image: string;
+}
 
-const categories = ["Tous", "Protection", "Pièces", "Entretien"];
+// Simulation d'une base de données locale
+const localAnnonces = localStorage.getItem('annonces');
+const initialAnnonces: Annonce[] = localAnnonces ? JSON.parse(localAnnonces) : [];
 
-const Accessories = () => {
+const Boutique = () => {
+  const [annonces, setAnnonces] = useState<Annonce[]>(initialAnnonces);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedAnnonces = localStorage.getItem('annonces');
+      if (updatedAnnonces) {
+        setAnnonces(JSON.parse(updatedAnnonces));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Navbar />
       
       <div className="container-custom py-20">
-        <h1 className="text-4xl font-bold text-center mb-6">Nos Accessoires</h1>
+        <h1 className="text-4xl font-bold text-center mb-6">Notre Boutique</h1>
         <p className="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-          Découvrez notre sélection d'accessoires et de pièces de qualité pour votre moto
+          Découvrez nos produits et annonces disponibles
         </p>
 
-        {/* Filtres par catégorie */}
-        <div className="flex justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={category === "Tous" ? "default" : "outline"}
-              className="min-w-[100px]"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
-
-        {/* Grille d'accessoires */}
+        {/* Grille d'annonces */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {accessories.map((item, index) => (
+          {annonces.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 20 }}
@@ -103,20 +64,13 @@ const Accessories = () => {
                 <div className="aspect-square overflow-hidden">
                   <img
                     src={item.image}
-                    alt={item.name}
+                    alt={item.title}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <CardTitle>{item.name}</CardTitle>
-                      <CardDescription>{item.description}</CardDescription>
-                    </div>
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-foreground">
-                      {item.category}
-                    </span>
-                  </div>
+                  <CardTitle>{item.title}</CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold text-primary">{item.price}</p>
@@ -124,7 +78,7 @@ const Accessories = () => {
                 <CardFooter className="flex justify-between">
                   <Button variant="outline" className="w-full" asChild>
                     <a
-                      href={`https://wa.me/22890010544?text=Je suis intéressé par ${item.name} à ${item.price}`}
+                      href={`https://wa.me/22890010544?text=Je suis intéressé par ${item.title} à ${item.price}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -138,7 +92,7 @@ const Accessories = () => {
           ))}
         </div>
 
-        {/* Garantie et services */}
+        {/* Section garanties */}
         <div className="mt-20 grid md:grid-cols-3 gap-8">
           <div className="text-center">
             <Shield className="w-12 h-12 mx-auto mb-4 text-primary" />
@@ -163,4 +117,4 @@ const Accessories = () => {
   );
 };
 
-export default Accessories;
+export default Boutique;

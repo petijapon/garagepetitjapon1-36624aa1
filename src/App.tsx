@@ -15,7 +15,7 @@ import Admin from "./pages/Admin";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
-import Accessories from "./pages/Accessories";
+import Boutique from "./pages/Accessories";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +35,7 @@ const App = () => (
           <Route path="/galerie" element={<Gallery />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/parametres" element={<Settings />} />
-          <Route path="/accessoires" element={<Accessories />} />
+          <Route path="/boutique" element={<Boutique />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Chatbot />

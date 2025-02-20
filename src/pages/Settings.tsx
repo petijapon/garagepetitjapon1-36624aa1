@@ -31,7 +31,10 @@ interface Annonce {
 }
 
 const Settings = () => {
-  const [annonces, setAnnonces] = useState<Annonce[]>([]);
+  const [annonces, setAnnonces] = useState<Annonce[]>(() => {
+    const saved = localStorage.getItem('annonces');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [newAnnonce, setNewAnnonce] = useState<Partial<Annonce>>({});
   const { toast } = useToast();
 
@@ -53,7 +56,9 @@ const Settings = () => {
       image: newAnnonce.image || "/placeholder.svg",
     };
 
-    setAnnonces([...annonces, annonceToAdd]);
+    const updatedAnnonces = [...annonces, annonceToAdd];
+    setAnnonces(updatedAnnonces);
+    localStorage.setItem('annonces', JSON.stringify(updatedAnnonces));
     setNewAnnonce({});
     toast({
       title: "Succès",
@@ -62,7 +67,9 @@ const Settings = () => {
   };
 
   const handleDeleteAnnonce = (id: number) => {
-    setAnnonces(annonces.filter(annonce => annonce.id !== id));
+    const updatedAnnonces = annonces.filter(annonce => annonce.id !== id);
+    setAnnonces(updatedAnnonces);
+    localStorage.setItem('annonces', JSON.stringify(updatedAnnonces));
     toast({
       title: "Succès",
       description: "L'annonce a été supprimée avec succès",

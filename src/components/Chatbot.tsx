@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { MessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -43,7 +44,7 @@ const Chatbot = () => {
             className="fixed bottom-20 right-4 w-[350px] bg-white rounded-lg shadow-lg overflow-hidden"
           >
             <div className="p-4 bg-primary text-white flex justify-between items-center">
-              <h3 className="font-semibold">Assistant virtuel de FABIO IMMOBILIER</h3>
+              <h3 className="font-semibold">Assistant virtuel du GARAGE PETIT JAPON</h3>
               <Button 
                 variant="ghost" 
                 size="icon"
