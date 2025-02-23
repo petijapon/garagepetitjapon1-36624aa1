@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +17,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { BookOpen, Users, Clock, GraduationCap, CalendarDays } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -66,14 +73,16 @@ const FormationCard = ({ formation }: { formation: FormationProps }) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     nom: "",
+    prenom: "",
+    sexe: "",
+    dateNaissance: "",
     email: "",
     telephone: "",
-    message: "",
+    pays: "",
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Envoyer les données d'inscription
     toast({
       title: "Inscription envoyée !",
       description: "Nous vous contacterons bientôt pour confirmer votre inscription.",
@@ -114,19 +123,57 @@ const FormationCard = ({ formation }: { formation: FormationProps }) => {
           <DialogTrigger asChild>
             <Button className="w-full">S'inscrire</Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
               <DialogTitle>Inscription à la formation {formation.title}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Nom complet</label>
-                <Input
-                  value={formData.nom}
-                  onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
-                  required
-                />
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Nom</label>
+                  <Input
+                    value={formData.nom}
+                    onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Prénom</label>
+                  <Input
+                    value={formData.prenom}
+                    onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
+                    required
+                  />
+                </div>
               </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Sexe</label>
+                  <Select
+                    value={formData.sexe}
+                    onValueChange={(value) => setFormData({ ...formData, sexe: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionnez" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="M">Masculin</SelectItem>
+                      <SelectItem value="F">Féminin</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Date de naissance</label>
+                  <Input
+                    type="date"
+                    value={formData.dateNaissance}
+                    onChange={(e) => setFormData({ ...formData, dateNaissance: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium mb-2">Email</label>
                 <Input
@@ -136,6 +183,7 @@ const FormationCard = ({ formation }: { formation: FormationProps }) => {
                   required
                 />
               </div>
+
               <div>
                 <label className="block text-sm font-medium mb-2">Téléphone</label>
                 <Input
@@ -144,13 +192,16 @@ const FormationCard = ({ formation }: { formation: FormationProps }) => {
                   required
                 />
               </div>
+
               <div>
-                <label className="block text-sm font-medium mb-2">Message (optionnel)</label>
-                <Textarea
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                <label className="block text-sm font-medium mb-2">Pays de résidence</label>
+                <Input
+                  value={formData.pays}
+                  onChange={(e) => setFormData({ ...formData, pays: e.target.value })}
+                  required
                 />
               </div>
+
               <Button type="submit" className="w-full">Envoyer l'inscription</Button>
             </form>
           </DialogContent>
