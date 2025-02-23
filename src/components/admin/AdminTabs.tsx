@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,7 +10,9 @@ import {
   MessageSquare,
   GraduationCap,
   ThumbsUp,
-  X
+  X,
+  Pencil,
+  Trash
 } from "lucide-react";
 import {
   Card,
@@ -25,6 +27,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
+interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  images: string[];
+}
 
 interface FormationInscription {
   id: number;
@@ -67,22 +77,90 @@ export const AdminTabs = () => {
       status: "pending"
     }
   ]);
+  const [products, setProducts] = useState<Product[]>(() => {
+    const saved = localStorage.getItem('products');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [images, setImages] = useState<string[]>(() => {
+    const saved = localStorage.getItem('gallery');
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('products', JSON.stringify(products));
+  }, [products]);
+
+  useEffect(() => {
+    localStorage.setItem('gallery', JSON.stringify(images));
+  }, [images]);
 
   const handleAddProduct = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const newProduct = {
+      id: Date.now().toString(),
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      price: formData.get('price') as string,
+      images: ['/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png']
+    };
+
+    setProducts([...products, newProduct]);
     toast({
       title: "Produit ajouté",
       description: "Le produit a été ajouté avec succès."
+    });
+    (event.target as HTMLFormElement).reset();
+  };
+
+  const handleUpdateProduct = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!editingProduct) return;
+
+    const formData = new FormData(event.currentTarget);
+    const updatedProduct = {
+      ...editingProduct,
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      price: formData.get('price') as string,
+    };
+
+    setProducts(products.map(p => p.id === editingProduct.id ? updatedProduct : p));
+    setEditingProduct(null);
+    toast({
+      title: "Produit modifié",
+      description: "Le produit a été modifié avec succès."
+    });
+  };
+
+  const handleDeleteProduct = (id: string) => {
+    setProducts(products.filter(p => p.id !== id));
+    toast({
+      title: "Produit supprimé",
+      description: "Le produit a été supprimé avec succès."
     });
   };
 
   const handleAddImage = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+    const imageInput = event.currentTarget.querySelector('input[type="file"]') as HTMLInputElement;
+    if (imageInput.files && imageInput.files.length > 0) {
+      const newImages = Array.from(imageInput.files).map(() => `/lovable-uploads/${Date.now()}.png`);
+      setImages([...images, ...newImages]);
+      toast({
+        title: "Images ajoutées",
+        description: "Les images ont été ajoutées à la galerie avec succès."
+      });
+    }
+    event.currentTarget.reset();
+  };
+
+  const handleDeleteImage = (image: string) => {
+    setImages(images.filter(i => i !== image));
     toast({
-      title: "Image ajoutée",
-      description: "L'image a été ajoutée à la galerie avec succès."
+      title: "Image supprimée",
+      description: "L'image a été supprimée avec succès."
     });
   };
 
@@ -144,20 +222,77 @@ export const AdminTabs = () => {
                 </div>
                 <div>
                   <label className="block mb-2">Prix</label>
-                  <Input name="price" type="number" required />
-                </div>
-                <div>
-                  <label className="block mb-2">Images</label>
-                  <Input name="images" type="file" multiple accept="image/*" required />
+                  <Input name="price" required />
                 </div>
                 <Button type="submit">Ajouter</Button>
               </form>
             </DialogContent>
           </Dialog>
 
-          {/* Liste des produits existants */}
-          <div className="mt-6">
-            {/* ... Products list will go here ... */}
+          <div className="mt-6 grid gap-6">
+            {products.map(product => (
+              <Card key={product.id}>
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-semibold">{product.title}</h3>
+                      <p className="text-sm text-gray-500">{product.description}</p>
+                      <p className="font-semibold mt-2">{product.price}</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button 
+                            variant="outline"
+                            onClick={() => setEditingProduct(product)}
+                          >
+                            <Pencil className="w-4 h-4" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle>Modifier le produit</DialogTitle>
+                          </DialogHeader>
+                          <form onSubmit={handleUpdateProduct} className="space-y-4">
+                            <div>
+                              <label className="block mb-2">Nom du produit</label>
+                              <Input 
+                                name="title" 
+                                defaultValue={editingProduct?.title}
+                                required 
+                              />
+                            </div>
+                            <div>
+                              <label className="block mb-2">Description</label>
+                              <Textarea 
+                                name="description" 
+                                defaultValue={editingProduct?.description}
+                                required 
+                              />
+                            </div>
+                            <div>
+                              <label className="block mb-2">Prix</label>
+                              <Input 
+                                name="price" 
+                                defaultValue={editingProduct?.price}
+                                required 
+                              />
+                            </div>
+                            <Button type="submit">Mettre à jour</Button>
+                          </form>
+                        </DialogContent>
+                      </Dialog>
+                      <Button 
+                        variant="destructive"
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        <Trash className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       )}
@@ -181,6 +316,26 @@ export const AdminTabs = () => {
               </form>
             </DialogContent>
           </Dialog>
+
+          <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {images.map((image, index) => (
+              <div key={index} className="relative group">
+                <img
+                  src={image}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() => handleDeleteImage(image)}
+                >
+                  <Trash className="w-4 h-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -264,7 +419,6 @@ export const AdminTabs = () => {
         </div>
       )}
 
-      {/* Menu latéral */}
       <div className="fixed left-0 top-0 h-full w-64 bg-white border-r p-6">
         <div className="flex items-center gap-3 mb-8">
           <img 

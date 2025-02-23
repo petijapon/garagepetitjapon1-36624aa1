@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-interface Annonce {
-  id: number;
+interface Product {
+  id: string;
   title: string;
   description: string;
   price: string;
@@ -23,19 +23,20 @@ interface Annonce {
 }
 
 const Boutique = () => {
-  const [annonces, setAnnonces] = useState<Annonce[]>(() => {
-    const saved = localStorage.getItem('annonces');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const updatedAnnonces = localStorage.getItem('annonces');
-      if (updatedAnnonces) {
-        setAnnonces(JSON.parse(updatedAnnonces));
+      const saved = localStorage.getItem('products');
+      if (saved) {
+        setProducts(JSON.parse(saved));
       }
     };
 
+    // Charger les produits au démarrage
+    handleStorageChange();
+
+    // Écouter les changements dans le localStorage
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
@@ -51,25 +52,19 @@ const Boutique = () => {
         </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {annonces.map((item, index) => (
+          {products.map((item) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
             >
               <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-square overflow-hidden relative group">
-                  {item.images.map((image, imageIndex) => (
-                    <img
-                      key={imageIndex}
-                      src={image}
-                      alt={`${item.title} - Image ${imageIndex + 1}`}
-                      className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${
-                        imageIndex === 0 ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                      }`}
-                    />
-                  ))}
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={item.images[0]}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <CardHeader>
                   <CardTitle>{item.title}</CardTitle>
