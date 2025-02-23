@@ -16,6 +16,7 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Chatbot from "./components/Chatbot";
 import Boutique from "./pages/Boutique";
+import Formation from "./pages/Formation";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           <Route path="/parametres" element={<Settings />} />
           <Route path="/boutique" element={<Boutique />} />
+          <Route path="/formation" element={<Formation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Chatbot />
