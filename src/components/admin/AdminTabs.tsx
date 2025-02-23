@@ -95,15 +95,21 @@ export const AdminTabs = () => {
     localStorage.setItem('gallery', JSON.stringify(images));
   }, [images]);
 
-  const handleAddProduct = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleAddProduct = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const fileInput = event.currentTarget.querySelector('input[type="file"]') as HTMLInputElement;
+    
+    const productImages = fileInput.files 
+      ? Array.from(fileInput.files).map(() => `/lovable-uploads/${Date.now()}.png`)
+      : ['/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png'];
+
     const newProduct = {
       id: Date.now().toString(),
       title: formData.get('title') as string,
       description: formData.get('description') as string,
       price: formData.get('price') as string,
-      images: ['/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png']
+      images: productImages
     };
 
     setProducts([...products, newProduct]);
@@ -119,11 +125,16 @@ export const AdminTabs = () => {
     if (!editingProduct) return;
 
     const formData = new FormData(event.currentTarget);
+    const fileInput = event.currentTarget.querySelector('input[type="file"]') as HTMLInputElement;
+    
     const updatedProduct = {
       ...editingProduct,
       title: formData.get('title') as string,
       description: formData.get('description') as string,
       price: formData.get('price') as string,
+      images: fileInput.files?.length 
+        ? Array.from(fileInput.files).map(() => `/lovable-uploads/${Date.now()}.png`)
+        : editingProduct.images
     };
 
     setProducts(products.map(p => p.id === editingProduct.id ? updatedProduct : p));
@@ -224,6 +235,18 @@ export const AdminTabs = () => {
                   <label className="block mb-2">Prix</label>
                   <Input name="price" required />
                 </div>
+                <div>
+                  <label className="block mb-2">Images du produit</label>
+                  <Input 
+                    name="images" 
+                    type="file" 
+                    multiple 
+                    accept="image/*"
+                  />
+                  <p className="text-sm text-gray-500 mt-1">
+                    Vous pouvez sélectionner plusieurs images
+                  </p>
+                </div>
                 <Button type="submit">Ajouter</Button>
               </form>
             </DialogContent>
@@ -235,6 +258,16 @@ export const AdminTabs = () => {
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start">
                     <div>
+                      <div className="flex gap-2 mb-4">
+                        {product.images.map((image, index) => (
+                          <img
+                            key={index}
+                            src={image}
+                            alt={`${product.title} - Image ${index + 1}`}
+                            className="w-20 h-20 object-cover rounded"
+                          />
+                        ))}
+                      </div>
                       <h3 className="font-semibold">{product.title}</h3>
                       <p className="text-sm text-gray-500">{product.description}</p>
                       <p className="font-semibold mt-2">{product.price}</p>
@@ -277,6 +310,18 @@ export const AdminTabs = () => {
                                 defaultValue={editingProduct?.price}
                                 required 
                               />
+                            </div>
+                            <div>
+                              <label className="block mb-2">Nouvelles images</label>
+                              <Input 
+                                name="images" 
+                                type="file" 
+                                multiple 
+                                accept="image/*"
+                              />
+                              <p className="text-sm text-gray-500 mt-1">
+                                Laissez vide pour garder les images actuelles
+                              </p>
                             </div>
                             <Button type="submit">Mettre à jour</Button>
                           </form>
