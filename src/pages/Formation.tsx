@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +30,7 @@ const formations = [
     duration: "3 mois",
     mode: "Présentiel/En ligne",
     price: "350,000 FCFA",
-    image: "/lovable-uploads/360ec007-5442-4ced-992e-ad200f4095aa.png"
+    image: "/lovable-uploads/709d8b32-29e5-4a49-9ce5-f2e69888bba4.png"
   },
   {
     id: 2,
@@ -40,7 +39,7 @@ const formations = [
     duration: "2 mois",
     mode: "Présentiel/En ligne",
     price: "250,000 FCFA",
-    image: "/lovable-uploads/7f07a3d6-584d-4c57-b720-38a651a69c67.png"
+    image: "/lovable-uploads/0c518f2a-2752-4852-8e61-e77d7677eb27.png"
   },
   {
     id: 3,
